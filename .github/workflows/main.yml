@@ -45,5 +45,5 @@ jobs:
         run: npm run ng build
 
       - name: Deploy
-        run: npm run ng build
+        run: npm run deploy
           
