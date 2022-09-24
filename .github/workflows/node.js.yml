@@ -28,4 +28,4 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run ng build --if-present
-    - run: npm run ng dev
+    - run: npm test
