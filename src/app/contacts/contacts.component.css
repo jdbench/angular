@@ -2,7 +2,8 @@
     display: flex;
     column-gap: 15px;
     justify-content: center;
-    max-width: 90%;
+    width: 90%;
+    max-width: 1150px;
     margin: 0 auto;
 }
 .center{
