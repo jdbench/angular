@@ -1,0 +1,29 @@
+.inner-panel-wrapper{
+    display:flex;
+    flex-direction: column;
+}
+
+.inner-wrapper{
+    display:flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+img{
+    max-height: 100px;
+    justify-self: start;
+}
+
+.btn-wrapper{
+    width: fit-content;
+    margin-left: auto;
+}
+
+.btn-danger{
+    margin-left: 5px;
+}
+
+.btn{
+    padding: 10px;
+    width: 65px;
+}

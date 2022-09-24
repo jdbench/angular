@@ -1,1 +1,25 @@
-<p>contacts works!</p>
+<div class="contact-wrapper">
+    <div class="col-sm-6">
+        <app-contact-list 
+            (contactWasSelected)="selectedContact = $event"></app-contact-list>
+    </div>
+    <div class="col-sm-6">
+        <app-contact-detail 
+            *ngIf="selectedContact; else infoText"
+            [contact]="selectedContact"></app-contact-detail>
+        <ng-template #infoText>
+            <div class="row panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="center">Please select a Contact!</h1>
+                </div>
+                <div class="panel-body">
+                    <p class="center">
+                        Selecting a contact will display<br>
+                        their contact information.
+                    </p>
+                </div>
+            </div>
+            
+        </ng-template>
+    </div>
+</div>

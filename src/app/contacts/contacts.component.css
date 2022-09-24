@@ -1,0 +1,15 @@
+.contact-wrapper{
+    display: flex;
+    column-gap: 15px;
+    justify-content: center;
+    max-width: 90%;
+    margin: 0 auto;
+}
+.center{
+    text-align: center;
+}
+@media  screen and (max-width: 600px) {
+    .contact-wrapper{
+        display: block;
+    }
+}
