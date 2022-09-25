@@ -32,6 +32,14 @@ jobs:
         run: |
           npm run ng build
 
+      - name: Login GitHub User
+        run: |
+          git --version
+          git config user.name 'jdbench'
+          git config user.email 'justin.d.bench@gmail.com'
+          git config user.name
+          git config user.email
+
       - name: Deploy
         run: |
           npm run deploy
