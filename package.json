@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "deploy": "ng deploy --repo=https://github.com/jdbench/angular.git --name=jdbench --email=justin.d.bench@gmail.com --no-silent",
+    "deploy": "ng deploy --repo=git@github.com/jdbench/angular.git --name=jdbench --email=justin.d.bench@gmail.com --no-silent",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
