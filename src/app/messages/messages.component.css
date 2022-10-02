@@ -1,0 +1,12 @@
+.message-wrapper{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+@media  screen and (max-width: 600px) {
+    .message-wrapper{
+        display: block;
+    }
+}
