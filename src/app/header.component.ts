@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  menuItems = [
+    {linkId: 1, linkName: 'Documents', linkURL: '/documents'},
+    {linkId: 2, linkName: 'Messages', linkURL: '/messages'},
+    {linkId: 3, linkName: 'Contacts', linkURL: '/contacts'}
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

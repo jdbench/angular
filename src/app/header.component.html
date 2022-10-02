@@ -1,13 +1,11 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">WeLearn CMS</a>
+            <a routerLink="/" class="navbar-brand">WeLearn CMS</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="#">Documents</a></li>
-                <li><a href="#">Messages</a></li>
-                <li><a href="#">Contacts</a></li>
+                <li *ngFor = "let items of menuItems"><a [routerLink]="[items.linkURL]" routerLinkActive="active" ariaCurrentWhenActive="page">{{items.linkName}}</a></li>
             </ul>
         </div>
     </div>
