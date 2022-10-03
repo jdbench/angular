@@ -26,11 +26,11 @@ jobs:
         if:
           steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: |
-          npm ci
+          npm i
         
       - name: Build
         run: |
-          npm run ng build
+          npm run build
 
       - name: Login GitHub User
         run: |

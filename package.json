@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "deploy": "ng deploy angular",
+    "build": "ng build --configuration production --base-href https://jdbench.github.io/angular/",
+    "deploy": "npx angular-cli-ghpages --dir=docs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
