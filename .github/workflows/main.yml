@@ -38,7 +38,7 @@ jobs:
           git config user.email 'justin.d.bench@gmail.com'
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          publish_dir: build
+          folder: dist
           
