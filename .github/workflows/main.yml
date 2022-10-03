@@ -37,10 +37,8 @@ jobs:
           git --version
           git config user.name 'jdbench'
           git config user.email 'justin.d.bench@gmail.com'
-          git config user.name
-          git config user.email
 
       - name: Deploy
         run: |
-          npm run deploy
+          npm run ng deploy
           
