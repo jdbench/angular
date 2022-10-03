@@ -29,11 +29,10 @@ jobs:
         
       - name: Build
         run: |
-          npm run build
+          npm run ng build
 
       - name: Login GitHub User
         run: |
-          git --version
           git config user.name 'jdbench'
           git config user.email 'justin.d.bench@gmail.com'
 
