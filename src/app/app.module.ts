@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header.component';
+import { HeaderComponent } from './header/header.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
@@ -18,6 +18,7 @@ import { MessageItemComponent } from './messages/message-item/message-item.compo
 import { MessageEditComponent } from './messages/message-edit/message-edit.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { HomeComponent } from './home/home.component';
+import { UserDropdownDirective } from './customDirectives/user-dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HomeComponent } from './home/home.component';
     MessageItemComponent,
     MessageEditComponent,
     MessageListComponent,
-    HomeComponent
+    HomeComponent,
+    UserDropdownDirective
   ],
   imports: [
     FormsModule,

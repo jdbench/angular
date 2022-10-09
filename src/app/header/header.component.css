@@ -1,0 +1,7 @@
+.active{
+    color: black;
+    font-weight: bold;
+}
+#logoutLink{
+    border-top: 1px solid lightgrey;
+}
