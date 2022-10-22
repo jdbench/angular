@@ -6,7 +6,7 @@
         <div>
             <ul class="nav navbar-nav">
                 <li *ngFor = "let items of menuItems">
-                    <a [id]="[items.linkId]" [routerLink]="[items.linkURL]" routerLinkActive="active" ariaCurrentWhenActive="page">{{items.linkName}}</a>
+                    <a [id]="[items.linkId]" [routerLink]="[items.linkURL]" [routerLinkActive]="['active-link']">{{items.linkName}}</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -16,7 +16,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li *ngFor = "let items of dropdownItems">
-                            <a [id]="[items.linkId]" [routerLink]="[items.linkURL]" routerLinkActive="active" ariaCurrentWhenActive="page">{{items.linkName}}</a>
+                            <a [id]="[items.linkId]" [routerLink]="[items.linkURL]" [routerLinkActive]="['active-link']">{{items.linkName}}</a>
                         </li>
                         <li><a id="logoutLink" href="#6">Logout</a></li>
                     </ul>

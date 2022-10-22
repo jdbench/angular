@@ -1,14 +1,16 @@
-<div class="row panel panel-default panel-wrapper">
+<div class="panel panel-default">
     <div class="panel-heading">
-        <div class="row heading-wrapper">
-            <h1 class="col-xs-7 panel-title">Contacts</h1>
-            <button class="btn btn-success col-xs-4">New Contact</button>
+        <div class="d-flex">
+            <h1 class="m-0">Contacts</h1>
+            <a [routerLink]="['new']" class="btn btn-success">New Contact</a>
         </div>
     </div>
-    <div class="panel-body col-xs-12">
-        <app-list-item 
-            *ngFor="let contactEl of contacts"
-            [contact]="contactEl"
-            (contactSelected)="onContactSelected(contactEl)"></app-list-item>
+    <div class="panel-body">
+        <div class="col-xs-12">
+            <app-list-item 
+                *ngFor="let contactEl of contacts"
+                [contact]="contactEl"
+            ></app-list-item>
+        </div>
     </div>
 </div>
