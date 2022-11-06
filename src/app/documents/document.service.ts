@@ -47,7 +47,7 @@ export class DocumentService {
     else return;
    }
 
-   updateDocument(originalDocument: Document, newDocument: Document) {
+   updateDocument(originalDocument: Document | undefined, newDocument: Document | undefined) {
     if (originalDocument && newDocument) {
       const pos = this.documents.indexOf(originalDocument);
       if (pos < 0) return;

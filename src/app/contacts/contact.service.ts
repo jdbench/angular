@@ -9,8 +9,9 @@ import { Subject } from 'rxjs';
 export class ContactService {
   contactSelectedEvent = new EventEmitter<Contact>();
   contactListChangedEvent = new Subject<Contact[]>();
-  contacts: Contact[] = [];
-  maxContactId: number;
+  
+  private contacts: Contact[] = [];
+  private maxContactId: number;
 
   constructor() {
     this.contacts = MOCKCONTACTS;
@@ -22,17 +23,7 @@ export class ContactService {
   }
 
   getContact(id: string) {
-    if (!this.contacts) {
-      return null;
-    }
-
-    for (let contact of this.contacts) {
-      if (contact.id === id) {
-        return contact;
-      }
-    }
-
-    return null;
+    return this.contacts.find((contact) => contact.id === id);
   }
 
   getMaxId(): number {
@@ -57,17 +48,14 @@ export class ContactService {
     } else return;
   }
 
-  updateContact(originalContact: Contact, newContact: Contact) {
-    if (originalContact && newContact) {
-      const pos = this.contacts.indexOf(originalContact);
-      if (pos < 0) return
+  updateContact(originalContact?: Contact, newContact?: Contact) {
+    if (!newContact || !originalContact) return;
+    const pos = this.contacts.indexOf(originalContact);
+    if (pos < 0) return;
 
-      newContact.id = originalContact.id;
-      this.contacts[pos] = newContact;
-
-      const contactListClone = this.contacts.slice();
-      this.contactListChangedEvent.next(contactListClone);
-    } else return;
+    newContact.id = originalContact.id;
+    this.contacts[pos] = newContact;
+    this.contactListChangedEvent.next(this.contacts.slice());
   }
 
   deleteContact(contact: Contact) {

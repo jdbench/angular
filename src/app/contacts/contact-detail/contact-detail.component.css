@@ -1,3 +1,7 @@
+.panel-wrapper{
+    width: 300px;
+    margin: 0 auto;
+}
 .inner-panel-wrapper{
     display:flex;
     flex-direction: column;
@@ -26,4 +30,9 @@ img{
 .btn{
     padding: 10px;
     width: 65px;
+}
+@media only screen and (max-width: 600px) {
+    .panel-wrapper {
+        width: 100%;
+    }
 }
