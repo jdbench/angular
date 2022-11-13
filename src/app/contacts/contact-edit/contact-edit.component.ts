@@ -78,20 +78,15 @@ export class ContactEditComponent implements OnInit {
 
   
 isInvalidContact(newContact: Contact) {
-  if (!newContact) {// newContact has no value
-    return true;
-  }
-  if (this.contact && newContact.id === this.contact.id) {
-     return true;
-  }
-  this.groupContacts?.forEach((contact) => {
-    if (newContact.id === contact.id) return true
-  })
+  if (!newContact) return true;
+  
+  if (this.contact && newContact.id === this.contact.id) return true;
+  this.groupContacts.some((c) => newContact.id === c.id);
   return false;
 }
 
   onRemoveItem(index: number) {
-    if (index < 0 || index >= this.groupContacts?.length) return;
-    this.groupContacts?.splice(index, 1);
+    if (index < 0 || index >= this.groupContacts.length) return;
+    this.groupContacts.splice(index, 1);
   }
 }
