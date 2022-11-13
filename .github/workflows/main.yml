@@ -37,7 +37,6 @@ jobs:
           git config user.email 'justin.d.bench@gmail.com'
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs
+        run: |
+          npm run ng deploy
           
