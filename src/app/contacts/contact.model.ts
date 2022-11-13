@@ -5,7 +5,7 @@ export class Contact {
         public email: string,
         public phone: string,
         public imageUrl: string,
-        public group?: Contact[] | null
+        public group: Contact[] | null
         ) {
             this.id = id;
             this.name = name;
