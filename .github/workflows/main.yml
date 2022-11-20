@@ -53,5 +53,5 @@ jobs:
 
       - name: Deploy
         run: |
-          npm run ng deploy
+          node server.js
           
