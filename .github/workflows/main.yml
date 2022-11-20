@@ -53,5 +53,5 @@ jobs:
 
       - name: Deploy
         run: |
-          node server.js
+          npm run build && gh-pages -dist build
           
