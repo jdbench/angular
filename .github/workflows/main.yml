@@ -37,7 +37,6 @@ jobs:
         run: |
           git config --global user.name 'jdbench'
           git config --global user.email 'justin.d.bench@gmail.com'
-          git remote add origin https://jdbench:Pudgymcstudly99!@github.com/jdbench/angular.git
 
 
       - name: Deploy
