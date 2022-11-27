@@ -9,40 +9,32 @@ import { Document } from './document.model';
 export class DocumentService {
   documentListChangedEvent = new Subject<Document[]>();
   documents: Document[] = [];
-  private maxDocumentId: number;
-  private documentsUrl =
-    'https://jbcms-694f4-default-rtdb.firebaseio.com/documents.json';
+  private documentsUrl = 'http://localhost:3000/documents';
 
   constructor(private http: HttpClient) {}
 
-  getDocuments(): Document[] {
-    this.http
-      .get<Document[]>(this.documentsUrl)
-      .subscribe((documents: Document[]) => {
-        this.documents = documents;
-        this.maxDocumentId = this.getMaxId();
-        this.documents.sort((a, b) => {
-          if (a < b) return -1;
-          if (a > b) return 1;
-          return 0;
-        });
-        this.documentListChangedEvent.next(this.documents.slice());
-      });
-    return this.documents.slice();
+  sortAndSend() {
+    this.documents.sort((a, b) => {
+      if (a < b) return -1;
+      if (a > b) return 1;
+      return 0;
+    });
+    this.documentListChangedEvent.next(this.documents.slice());
   }
 
-  storeDocuments() {
+  getDocuments() {
     this.http
-      .put(this.documentsUrl, JSON.stringify(this.documents), {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      })
-      .subscribe(() => {
-        this.documents.sort((a, b) => {
-          if (a < b) return -1;
-          if (a > b) return 1;
-          return 0;
-        });
-        this.documentListChangedEvent.next(this.documents.slice());
+      .get<{ message: string; documents: Document[] }>(this.documentsUrl)
+      .subscribe({
+        next: (res) => {
+          console.log(res.message);
+          this.documents = res.documents;
+          this.sortAndSend();
+        },
+        error: (err) => {
+          console.error(err.message);
+          console.error(err.error);
+        },
       });
   }
 
@@ -50,43 +42,75 @@ export class DocumentService {
     return this.documents.find((d) => d.id === id);
   }
 
-  getMaxId(): number {
-    let maxId = 0;
-
-    this.documents.forEach((document) => {
-      const currentId = +document.id;
-      if (currentId > maxId) maxId = currentId;
-    });
-    return maxId;
-  }
-
   addDocument(newDocument: Document) {
     if (!newDocument) return;
-    this.maxDocumentId++;
-    newDocument.id = `${this.maxDocumentId}`;
-    this.documents.push(newDocument);
-    this.storeDocuments();
-  }
-
-  updateDocument(
-    originalDocument: Document | undefined,
-    newDocument: Document | undefined
-  ) {
-    if (!originalDocument || !newDocument) return;
-
-    const pos = this.documents.indexOf(originalDocument);
-    if (pos < 0) return;
-
-    newDocument.id = originalDocument.id;
-    this.documents[pos] = newDocument;
-    this.storeDocuments();
+    newDocument.id = '';
+    this.http
+      .post<{ message: string; document: Document }>(
+        this.documentsUrl,
+        newDocument,
+        { headers: new HttpHeaders().set('Content-Type', 'application/json') }
+      )
+      .subscribe({
+        next: (res) => {
+          console.log(res.message);
+          this.documents.push(res.document);
+          this.sortAndSend();
+        },
+        error: (err) => {
+          console.error(err.message);
+          console.error(err.error);
+        },
+      });
   }
 
   deleteDocument(document: Document) {
     if (!document) return;
     const pos = this.documents.indexOf(document);
     if (pos < 0) return;
-    this.documents.splice(pos, 1);
-    this.storeDocuments();
+    this.http
+      .delete<{ message: string }>(`${this.documentsUrl}/${document.id}`)
+      .subscribe({
+        next: (res) => {
+          console.log(res.message);
+          this.documents.splice(pos, 1);
+          this.sortAndSend();
+        },
+        error: (err) => {
+          console.error(err.message);
+          console.error(err.error);
+        },
+      });
+  }
+
+  updateDocument(
+    originalDocument: Document | undefined,
+    newDocument: Document | undefined
+  ) {
+    if (!newDocument || !originalDocument) return;
+    const pos = this.documents.indexOf(originalDocument);
+    if (pos < 0) return;
+
+    newDocument.id = originalDocument.id;
+    newDocument._id = originalDocument._id;
+    this.http
+      .put<{ message: string }>(
+        `${this.documentsUrl}/${originalDocument.id}`,
+        newDocument,
+        {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+        }
+      )
+      .subscribe({
+        next: (res) => {
+          console.log(res.message);
+          this.documents[pos] = newDocument;
+          this.sortAndSend();
+        },
+        error: (err) => {
+          console.error(err.message);
+          console.error(err.error);
+        },
+      });
   }
 }

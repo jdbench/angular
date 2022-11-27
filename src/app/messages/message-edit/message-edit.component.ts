@@ -13,12 +13,15 @@ export class MessageEditComponent implements OnInit {
 
   constructor(private messageService: MessageService) { }
 
+  _id: string;
+  id: string;
+
   ngOnInit(): void {}
 
   onSendMessage() {
     const subject = this.subject.nativeElement.value;
     const msgText = this.message.nativeElement.value;
-    const message = new Message('1', subject, msgText, '5');
+    const message = new Message(this._id, this.id, subject, msgText, '101');
     this.messageService.addMessage(message);
     this.onClear();
   }

@@ -9,7 +9,7 @@ import { DocumentService } from '../document.service';
   styleUrls: ['./document-list.component.css']
 })
 export class DocumentListComponent implements OnInit, OnDestroy {
-  documents: Document[];
+  documents: any;
 
   private subscription: Subscription
 

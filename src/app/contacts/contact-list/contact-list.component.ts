@@ -9,7 +9,7 @@ import { ContactService } from '../contact.service';
   styleUrls: ['./contact-list.component.css'],
 })
 export class ContactListComponent implements OnInit, OnDestroy {
-  contacts: Contact[] = [];
+  contacts: any = [];
   term: string = '';
   private subscription: Subscription;
 

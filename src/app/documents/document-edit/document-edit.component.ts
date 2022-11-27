@@ -13,6 +13,7 @@ export class DocumentEditComponent implements OnInit {
   originalDocument: Document | undefined;
   document: Document | undefined;
   editMode: boolean = false;
+  _id: string;
   id: string;
 
   constructor(
@@ -43,6 +44,7 @@ export class DocumentEditComponent implements OnInit {
   onSubmit(form: NgForm) {
     const values = form.value;
     const newDocument = new Document(
+      this._id, 
       this.id, 
       values.name, 
       values.description, 

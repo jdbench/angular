@@ -9,60 +9,58 @@ import { Message } from './message.model';
 export class MessageService {
   messageListChangedEvent = new Subject<Message[]>();
   private messages: Message[] = [];
-  private messagesUrl = 'https://jbcms-694f4-default-rtdb.firebaseio.com/messages.json';
-  private maxMessageId: number;
+  private messagesUrl = 'http://localhost:3000/messages';
 
   constructor(private http: HttpClient) {}
 
-  storeMessages() {
-    this.http
-      .put(this.messagesUrl, JSON.stringify(this.messages), {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      })
-      .subscribe(() => {
-        this.messages.sort((a, b) => {
-          if (a < b) return -1;
-          if (a > b) return 1;
-          return 0;
-        });
-        this.messageListChangedEvent.next(this.messages.slice());
-      });
+  sortAndSend() {
+    this.messages.sort((a, b) => {
+      if (a < b) return -1;
+      if (a > b) return 1;
+      return 0;
+    });
+    this.messageListChangedEvent.next(this.messages.slice());
   }
 
-  getMessages(): Message[] {
+  getMessages() {
     this.http
-      .get<Message[]>(this.messagesUrl)
-      .subscribe((messages: Message[]) => {
-        this.messages = messages;
-        this.maxMessageId = this.getMaxId();
-        this.messages.sort((a, b) => {
-          if (a < b) return -1;
-          if (a > b) return 1;
-          return 0;
-        });
-        this.messageListChangedEvent.next(this.messages.slice());
+      .get<{ message: string; messageObjs: Message[] }>(this.messagesUrl)
+      .subscribe({
+        next: (res) => {
+          console.log(res.message);
+          this.messages = res.messageObjs;
+          this.sortAndSend();
+        },
+        error: (err) => {
+          console.error(err.message);
+          console.error(err.error);
+        },
       });
-    return this.messages.slice();
   }
 
   getMessage(id: string) {
     return this.messages.find((m) => m.id === id);
   }
 
-  getMaxId(): number {
-    let maxId = 0;
-    this.messages.forEach((message) => {
-      const currentId = +message.id;
-      if (currentId > maxId) maxId = currentId;
-    });
-    return maxId;
-  }
-
   addMessage(newMessage: Message) {
     if (!newMessage) return;
-    this.maxMessageId++;
-    newMessage.id = `${this.maxMessageId}`;
-    this.messages.push(newMessage);
-    this.storeMessages();
+    newMessage.id = '';
+    this.http
+      .post<{ message: string; messageObj: Message }>(
+        this.messagesUrl,
+        newMessage,
+        { headers: new HttpHeaders().set('Content-Type', 'application/json') }
+      )
+      .subscribe({
+        next: (res) => {
+          console.log(res.message);
+          this.messages.push(res.messageObj);
+          this.sortAndSend();
+        },
+        error: (err) => {
+          console.error(err.message);
+          console.error(err.error);
+        },
+      });
   }
 }

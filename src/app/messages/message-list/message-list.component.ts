@@ -9,7 +9,7 @@ import { ContactService } from 'src/app/contacts/contact.service';
   styleUrls: ['./message-list.component.css']
 })
 export class MessageListComponent implements OnInit {
-  messages: Message[];
+  messages: any;
 
   constructor(private messageService: MessageService, private contactService: ContactService) { }
 

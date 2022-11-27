@@ -16,6 +16,7 @@ export class ContactEditComponent implements OnInit {
   groupContacts: Contact[] = [];
   editMode: boolean = false;
   hasGroup: boolean = false;
+  _id: string;
   id: string;
 
   constructor(
@@ -50,6 +51,7 @@ export class ContactEditComponent implements OnInit {
   onSubmit(form: NgForm) {
     const value = form.value;
     const newContact = new Contact(
+      this._id, 
       this.id, 
       value.name, 
       value.email, 
