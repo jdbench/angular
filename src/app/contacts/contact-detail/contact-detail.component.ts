@@ -10,7 +10,7 @@ import { ContactService } from '../contact.service';
 })
 export class ContactDetailComponent implements OnInit {
 
-  contact?: Contact | null;
+  contact: any;
   id: string;
 
   constructor(
@@ -29,7 +29,7 @@ export class ContactDetailComponent implements OnInit {
   }
 
   onDelete() {
-    this.contactService.deleteContact(this.contact!);
+    this.contactService.deleteContact(this.contact);
     this.router.navigate(['/contacts'], {relativeTo: this.route})
   }
 

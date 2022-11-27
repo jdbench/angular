@@ -41,7 +41,10 @@ export class ContactService {
   }
 
   getContact(_id: string) {
-    const contact = this.contacts.find((c) => c._id === _id);
+    let contact = this.contacts.find((c) => c._id === _id);
+    if (!contact) {
+      contact = this.contacts.find((c) => c.id === _id);
+    }
     return contact;
   }
 

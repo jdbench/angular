@@ -39,7 +39,11 @@ export class DocumentService {
   }
 
   getDocument(id: string): Document | undefined {
-    return this.documents.find((d) => d.id === id);
+    let document = this.documents.find((d) => d.id === id);
+    if (!document) {
+      this.documents.find((d) => d._id === id)
+    }
+    return document;
   }
 
   addDocument(newDocument: Document) {
